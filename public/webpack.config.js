@@ -5,18 +5,22 @@
 'use strict';
 
 const path = require('path');
+const process = require('process');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const isDev = process.env.NODE_ENV === 'dev';
+//console.log(isDev);
 
-module.exports = {
+const devTool = isDev ? 'cheap-source-map' : '';
+//console.log(devTool);
+
+let webpackConf = {
   entry: [
     './main.js'
   ],
-  devtool: 'eval-source-map',
-  // cache: true,
-  // debug: true,
+  devtool: devTool,
   output: {
     // 输出文件名配置
     filename: '[name].[chunkhash:8].js',
@@ -33,9 +37,9 @@ module.exports = {
           presets: ['es2015']
         }
       },
-      { 
-        test: /\.css$/, 
-        loader: 'style-loader!css-loader' 
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.scss$/,
@@ -50,23 +54,35 @@ module.exports = {
     ]
   },
   plugins: [
-    // 压缩 js
+    // 生成`html`文件
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    })
+  ]
+
+};
+
+if(!isDev){
+  // `压缩js`
+  webpackConf.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       },
       except: ['$super', '$', 'exports', 'require']
-    }),
-    // 生成`html`文件
-    new HtmlWebpackPlugin({
-      template: './index.html'
-    }),
-    // 生产环境不报错
+    })
+  );
+
+  // `生产环境不报错`
+  webpackConf.plugins.push(
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify("production")
       }
     })
-  ]
+  );
+}
 
-};
+console.log(webpackConf.plugins.length);
+
+module.exports = webpackConf;

@@ -6,6 +6,9 @@
 
 import React from 'react';
 import {render} from 'react-dom';
+import { createStore } from 'redux'
+
+console.log(createStore);
 
 // import Counter from './components/counter';
 import Test from './components/Test';
