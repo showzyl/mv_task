@@ -13,7 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'dev';
 //console.log(isDev);
 
-const devTool = isDev ? 'cheap-source-map' : '';
+const devTool = isDev ? 'source-map' : '';
 //console.log(devTool);
 
 let webpackConf = {
@@ -34,7 +34,7 @@ let webpackConf = {
         exclude: /node_modules/,
         loader: 'babel',
         query: {
-          presets: ['es2015']
+          presets: ['es2015', "stage-0"]
         }
       },
       {
@@ -83,6 +83,6 @@ if(!isDev){
   );
 }
 
-console.log(webpackConf.plugins.length);
+//console.log(webpackConf.plugins.length);
 
 module.exports = webpackConf;
