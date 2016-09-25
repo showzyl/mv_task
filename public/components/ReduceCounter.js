@@ -9,7 +9,7 @@ import 'todomvc-app-css/index.css';
 
 class ReduceCounter extends Component {
 
-  // didn't work
+  // must add exlint it can work
   static PropTypes = {
     count: PropTypes.func.isRequired,
     add: PropTypes.func.isRequired,

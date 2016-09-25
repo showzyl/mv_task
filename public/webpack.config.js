@@ -10,6 +10,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+
 const isDev = process.env.NODE_ENV === 'dev';
 //console.log(isDev);
 
