@@ -14,11 +14,11 @@ class ReduceCounter extends Component {
     count: PropTypes.func.isRequired,
     add: PropTypes.func.isRequired,
     minus: PropTypes.func.isRequired
-  }
+  };
   
   Alert = (e) => {
     alert(123);
-  }
+  };
   
   render() {
     let {count, add, minus} = this.props;
