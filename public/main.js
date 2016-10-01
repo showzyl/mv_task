@@ -17,7 +17,10 @@ const store = createStore(storeReducer, window.devToolsExtension && window.devTo
 // import Counter from './components/counter';
 //import ReduceCounter from './components/ReduceCounter';
 
-import Picker from './components/Picker';
+import Picker from './components/Picker'
+import Todos from './components/Todos1'
+
+
 const el = document.querySelector('#root');
 
 const elRender = () => render(
@@ -25,7 +28,8 @@ const elRender = () => render(
   //       add={() => store.dispatch({type: 'ADD'})}
   //       minus={() => store.dispatch({type: 'MINUS'})}
   // />,}
-  <Picker />,
+  // <Picker />,
+  <Todos/>,
   el
 );
 

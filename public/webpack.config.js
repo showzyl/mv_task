@@ -18,6 +18,7 @@ const devTool = isDev ? 'source-map' : '';
 //console.log(devTool);
 
 let webpackConf = {
+  isDev: isDev,
   entry: [
     './main.js'
   ],
