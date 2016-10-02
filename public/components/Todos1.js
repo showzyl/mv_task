@@ -7,6 +7,7 @@
 import React, {Component, PropTypes} from 'react'
 import Header from './todos1/Header'
 import List from './todos1/List'
+import Footer from './todos1/Footer'
 
 class Todos extends Component{
   constructor(props) {
@@ -43,6 +44,7 @@ class Todos extends Component{
       <div>
         <Header {...this.state} addList={e => this.addList(e)}/>
         <List list={list} handleCheck={(e, i) => this.handleCheck(e, i)}/>
+        <Footer />
       </div>
     )
   }
