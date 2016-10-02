@@ -30,12 +30,19 @@ class Todos extends Component{
       list: list
     })
   }
+  handleCheck(e, i){
+    let {list} = this.state;
+    list[i].bCheck = !list[i].bCheck;
+    this.setState({
+      list: list
+    })
+  }
   render(){
     let {list} = this.state;
     return (
       <div>
         <Header {...this.state} addList={e => this.addList(e)}/>
-        <List list={list}/>
+        <List list={list} handleCheck={(e, i) => this.handleCheck(e, i)}/>
       </div>
     )
   }

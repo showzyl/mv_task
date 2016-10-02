@@ -5,18 +5,18 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react'
+import '../../style/style.css'
 
 export default class List extends Component{
   constructor(props) {
     super(props);
-    // this.state = this.props;
-    // console.log(this.state);
   }
   render(){
+    //console.log(this.props);
     return (
       <ul>
         {this.props.list.map((item, i) =>
-          <Li item={item} key={i}/>
+          <Li item={item} index={i} key={i} handleCheck={e => this.props.handleCheck(e, i)}/>
         )}
       </ul>
     )
@@ -24,13 +24,15 @@ export default class List extends Component{
 }
 
 class Li extends Component{
-  handleClick(){
-    alert(1);
+  handleClick(e, i){
+    let {item, handleCheck} = this.props;
+    handleCheck(e, i);
   }
   render(){
-    let {item} = this.props;
+    let {item,index} = this.props;
+    let className = item.bCheck ? 'remove' : '';
     return (
-      <li onClick={e => this.handleClick(e)}>{item.txt}</li>
+      <li onClick={e => this.handleClick(e, index)} className={className}>{item.txt}</li>
     )
   }
 }
