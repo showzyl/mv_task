@@ -38,13 +38,18 @@ class Todos extends Component{
       list: list
     })
   }
+  filerList(list){
+    this.setState({
+      list: list
+    })
+  }
   render(){
     let {list} = this.state;
     return (
       <div>
         <Header {...this.state} addList={e => this.addList(e)}/>
         <List list={list} handleCheck={(e, i) => this.handleCheck(e, i)}/>
-        <Footer />
+        <Footer list={list} filerList={this.filerList.bind(this)}/>
       </div>
     )
   }

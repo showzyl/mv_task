@@ -6,6 +6,9 @@
 
 
 import React, {Component, PropTypes} from 'react'
+import _ from 'lodash'
+
+console.log(_);
 
 let data = [
   {
@@ -25,12 +28,16 @@ let data = [
 export default class Footer extends Component{
   constructor(props) {
     super(props);
+    let {list} = props;
+    console.log(list);
     this.state = {
-      data
-    };
-    //console.log(this.state);
+      data,
+      list
+    }
   }
-  handleClick(e, index){
+  handleClick(e, index, type){
+    let {list} = this.state;
+    let {filerList} = this.props;
     data.forEach((item, i) => {
       if(index !== i){
         data[i].check = false;
@@ -39,9 +46,33 @@ export default class Footer extends Component{
       }
       return item;
     });
+    console.log(list);
+    let newList = this.handleList(type, list);
+    //console.log(data, list, filerList);
     this.setState({
-      data
-    });
+      data,
+      list: newList
+    })
+  }
+  handleList(type, list){
+    console.log(type);
+    // copy list && change list
+
+    switch (type){
+      case 'active':
+        return list.map(item => {
+          console.log(item);
+          if(item.bCheck) return item;
+        });
+        break;
+      case 'completed':
+        return list.map(item => {
+          if(!item.bCheck) return item;
+        });
+        break;
+      default:
+        return list;
+    }
   }
   render(){
     let {data} = this.state;
@@ -50,7 +81,7 @@ export default class Footer extends Component{
         <p>
           Show:
           {data.map((item, i) =>
-            <FooterList item={item} key={i} index={i} handleClick={(e) => this.handleClick(e, i)}/>
+            <FooterList item={item} key={i} index={i} handleClick={(e) => this.handleClick(e, i, item.type)}/>
           )}
         </p>
       </footer>
@@ -64,14 +95,15 @@ class FooterList extends Component{
   }
   render(){
     let {item, index, handleClick} = this.props;
-    //console.log(this.props);
     if(item.check){
       return (
         <span> {item.type} </span>
       )
     }else{
+      let type = item.type;
+      //console.log(type);
       return (
-        <a href="javascript:;" onClick={(e) => handleClick(e, index)}> {item.type} </a>
+        <a href="javascript:;" onClick={(e) => handleClick(e, index, type)}> {type} </a>
       )
     }
   }
