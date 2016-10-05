@@ -35,9 +35,9 @@ export default class Footer extends Component{
       <footer>
         <p>
           Show:
-          {data.map((item, i) => {
+          {data.map((item, i) =>
             <FooterList item={item} key={i} index={i}/>
-          })}
+          )}
         </p>
       </footer>
     )
@@ -50,10 +50,15 @@ class FooterList extends Component{
   }
   render(){
     let {item} = this.props;
-    console.log(this.props)
-    let res = item.check ? '<span>'+item.type+'</span>' : '<a href="javascript:;">'+item.type+'</a>';
-    return (
-      res
-    )
+    console.log(this.props);
+    if(item.check){
+      return (
+        <span> {item.type} </span>
+      )
+    }else{
+      return (
+        <a href="javascript:;"> {item.type} </a>
+      )
+    }
   }
 }
