@@ -8,7 +8,6 @@
 import React, {Component, PropTypes} from 'react'
 import _ from 'lodash'
 
-console.log(_);
 
 let data = [
   {
@@ -28,16 +27,14 @@ let data = [
 export default class Footer extends Component{
   constructor(props) {
     super(props);
-    let {list} = props;
-    console.log(list);
     this.state = {
-      data,
-      list
+      data
     }
   }
+
   handleClick(e, index, type){
-    let {list} = this.state;
     let {filerList} = this.props;
+    let {list} = this.props;
     data.forEach((item, i) => {
       if(index !== i){
         data[i].check = false;
@@ -46,34 +43,46 @@ export default class Footer extends Component{
       }
       return item;
     });
-    console.log(list);
-    let newList = this.handleList(type, list);
-    //console.log(data, list, filerList);
+    //console.log(list);
+    console.log(this.props.list);
+
+    //console.log(newList);
     this.setState({
-      data,
-      list: newList
-    })
+      data
+    });
+
+    let newList = this.handleList(type, list);
+    
+    filerList(newList);
+    console.log(this.state);
   }
+
   handleList(type, list){
     console.log(type);
     // copy list && change list
-
+    let newList = _.cloneDeep(list);
+    let res;
     switch (type){
       case 'active':
-        return list.map(item => {
-          console.log(item);
-          if(item.bCheck) return item;
-        });
-        break;
-      case 'completed':
-        return list.map(item => {
+        res = _.filter(newList, item => {
           if(!item.bCheck) return item;
         });
+        console.log(res);
+        return res;
+        break;
+      case 'completed':
+        res = _.filter(newList, item => {
+          //console.log(item);
+          if(item.bCheck) return item;
+        });
+        console.log(res);
+        return res;
         break;
       default:
         return list;
     }
   }
+
   render(){
     let {data} = this.state;
     return (
@@ -87,7 +96,9 @@ export default class Footer extends Component{
       </footer>
     )
   }
+
 }
+
 
 class FooterList extends Component{
   constructor(props) {
